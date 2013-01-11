@@ -1,0 +1,31 @@
+{
+  "name": "font-face-down",
+  "description": "Node.js @font-face kit generator app",
+  "version": "0.3",
+  "private": true,
+  "author": {
+    "name": "Mushex Antaranian",
+    "email": "mushex@antaranian.com"
+  },  
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.0",
+    "riak-js": "0.4.1",
+    "libxmljs": "0.6.1",
+    "underscore": "*",
+    "fs-extra": "*"
+  },
+  "keywords": [
+    "font-face",
+    "font",
+    "ttf",
+    "woff",
+    "webfont"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://bb.antaranian.com/font-face-down"
+  }
+}

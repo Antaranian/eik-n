@@ -1,0 +1,119 @@
+//
+// Variables
+// --------------------------------------------------
+
+@blueDm		: #446CB3;
+@tiffanyDm	: #5BC4BE;
+
+@sansFontFamily:        'Open Sans',sans-serif;
+
+@baseLineHeight:        25px;
+
+@btnDmBackground:				@blueDm;
+@btnDmBackgroundHighlight:		@blueDm;
+
+@navbarBackground:				@blueDm;
+@navbarBackgroundHighlight:		@blueDm;
+
+@navbarText:					@white;
+@navbarLinkColor:				@white;
+@navbarLinkColorHover:			@blueDm;
+@navbarLinkColorActive:			@blueDm;
+@navbarLinkBackgroundHover:		@white;
+@navbarLinkBackgroundActive:	@white;
+
+@navbarBrandColor:				@navbarLinkColor;
+
+
+//
+// Layout
+// --------------------------------------------------
+
+.container {
+	width: 600px;
+}
+
+//
+// Navbars (Redux)
+// --------------------------------------------------
+
+.navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
+	width: 600px;
+}
+
+// Links
+.navbar .nav > li > a {
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
+	.box-shadow(1px 0 0 rgba(255, 255, 255, 0.11));
+	&:hover {
+		text-shadow: none;
+	}
+}
+
+
+
+//
+// Buttons
+// --------------------------------------------------
+
+.btn { }
+
+.btn-dm {
+	color:	@white;
+	background: @blueDm;
+	text-shadow: none;
+	&.disabled {
+		.buttonBackground(@btnDmBackground, @btnDmBackgroundHighlight);
+	}
+	&:hover {
+		color:	@white;
+	  	background-color: @tiffanyDm;
+		.transition(background-color .1s linear);
+	}
+	.caret {
+		color: @white;
+		margin-top: 11px;
+		border-top-color: @white;
+	}
+}
+
+//
+// Progress bars
+// --------------------------------------------------
+
+// Danger (red)
+.progress-dm .bar, .progress .bar-dm {
+	#gradient > .vertical(@blueDm, @blueDm);
+}
+
+//
+// Mixins
+// --------------------------------------------------
+
+// Fill height 
+.fill-height(@less: 0) {
+	@height: ~"100% - @{less}px";
+	height: 100%;
+	height: calc(@height);
+	height: -moz-calc(@height);
+	height: -webkit-calc(@height);
+}
+// Fill width
+.fill-width(@less: 0) {
+	@width: ~"100% - @{less}px";
+	width: 100%;
+	width: calc(@width);
+	width: -moz-calc(@width);
+	width: -webkit-calc(@width);
+}
+
+
+//
+// Utility classes
+// --------------------------------------------------
+
+
+.align-center {
+	text-align: center;
+}

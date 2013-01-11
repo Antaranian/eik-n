@@ -1,0 +1,279 @@
+@import "bootstrap/bootstrap.less";
+
+@import "extend.less";
+
+html, body {
+	padding: 0 0;
+}
+
+// @import "bootstrap/responsive.less";
+
+// @import "helper.less";
+
+/* ===== Primary Styles ========================================================
+	 Author: Mushex Antaranian
+	 ========================================================================== */
+
+@media (min-width: 979px) { 
+	body {
+		padding-top: 60px;
+	}
+}
+
+html {
+	height: 100%;
+	body {
+		.fill-height(80px);
+		overflow-y: scroll;
+		&.prepare-fonts {
+			#last-font { 
+				display: none;
+			}
+			#prepare-fonts {
+				width: 100%;
+				.resize-layout {
+					.icon-resize-full { display: none !important; }
+					.icon-resize-small { display: inline !important; }
+				}
+			}
+		}
+		&.last-font {
+			#prepare-fonts { 
+				display: none;
+			}
+			#last-font {
+				width: 100%;
+				.resize-layout {
+					.icon-resize-full { display: none !important; }
+					.icon-resize-small { display: inline !important; }
+				}
+			}
+		}
+	}
+}
+
+#container {
+	height: 100%;
+	& > .row-fluid, #prepare-fonts, #last-font {
+		height: 100%;
+	}
+	#prepare-fonts, #last-font {
+		margin: 0;
+		border: 1px solid @tableBorder;
+		position: relative;
+		.transition(all .1s linear);
+		.border-radius(2px);
+		& > header {
+			height: 35px;
+			padding: 9px;
+			margin-bottom: 0;
+			border-bottom: 1px solid #DDD;
+			background-color: @grayLighter;
+			.nav {
+				margin: 0 4px;
+				li {
+					a {
+						margin: 5px;
+						text-decoration: none;
+						.icon-resize-small {
+							display: none;
+						}
+					}
+				}
+			}
+		}
+		& > .section-content {
+			margin: 0;
+			padding: 10px;
+			list-style: none;
+			.fill-height(132px);
+			// background: @pink;
+		}
+		& > footer {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			.navbar {
+				margin-bottom: 0;
+				.navbar-inner {
+					.border-radius(0);
+				}
+			}
+		}
+	}
+}
+
+#prepare-fonts {
+	
+
+	#fonts {
+		min-height: 7.2em;
+		margin: 8px; 
+		.font {
+			.border-radius(2px);
+			border: 1px solid #DDD;
+			margin: 0 0 .8em;
+			header {
+				margin: 8px 12px;
+				cursor: pointer;
+				.font-name {
+					font-size: 24px;
+					line-height: 1.3em;
+					color: @black;
+					font-weight: normal;
+					&:hover {
+						.transition(color .2s linear);
+						color: @blueDm;
+					}
+				}
+				.font-info {
+					padding-left: .2em;
+					padding-right: .2em;
+					color: @gray;
+				}
+				.font-glyphs {
+					color: @blueDm;
+				}
+			}
+			.glyphs {
+
+				margin: 4px 2px;
+				.glyph {
+					margin: 4px;
+					padding: 4px;
+					border: 1px solid @blueDm;
+					width: 48px;
+					height: 48px;
+					font-size: 36px;
+					line-height: 48px;
+					text-align: center;
+					display: inline-block;
+					.border-radius(2px);
+					&:hover {
+						border-color: @pink;
+						background: #efefef;
+					}
+					&.active {
+						border-color: @pink;
+						background: #eeeeee;
+					}
+				} 
+			}
+
+			&:hover {
+				background: #F7F7F7;
+			}
+		}
+	}
+
+	#upload {
+		.qq-uploader {
+			.qq-upload-drop-area {
+				border: 1px dotted #DDD;
+				background: #f7f7f7;
+				text-align: center;
+				padding: .2em;
+				float: right;
+			}
+			.qq-upload-button {
+				float: left;
+				margin-left: 0;
+				margin-top: 0; 
+			}
+			.qq-upload-list {
+				display: none;
+			}
+		}
+	}
+}
+
+#last-font {
+	header {
+		.nav {
+			li {
+				input {
+					background: transparent;
+					border-color: transparent;
+					font-size: 1.8em;
+					color: @grayDark;
+					// font-weight: bold;
+					&:active, &:focus {
+						outline: none;
+						.box-shadow(none);
+					}
+				}
+			}
+		}
+	}
+	#last-glyphs {
+		list-style: none;
+		.glyph {
+			border: 1px solid @blueDm;
+			display: inline-block;
+			.border-radius(2px);
+			margin: 4px;
+			header, footer {
+				font-size: 11px;
+				color: @white;
+				background: @blueDm;
+				padding: 2px 4px;
+				a {
+					color: @grayLighter;
+					&:hover, &:active {
+						color: @white;
+						text-decoration: none;
+					}
+				}
+				.glyph-code {
+					display: block;
+					text-align: center;
+					outline: none;
+					height: 25px;
+					width: 56px;
+					overflow: hidden;
+				}
+			}
+			section {
+				width: 56px;
+				position: relative;
+				.glyph-icon {
+					width: 48px;
+					margin: 4px;
+					padding: 4px;
+					text-align: center;
+					display: block;
+					height: 48px;
+					font-size: 36px;
+					line-height: 48px;
+				}
+				.settings {
+					display: none;
+					position: absolute;
+					left: 0;
+					top: -4px;
+					padding: 12px 4px 4px;
+					height: 100%;
+					width: 100%;
+					background: @blueDm;
+					.glyph-name {
+						font-size: 11px;
+						color: @white;
+						display: block;
+						outline: none;
+						height: 25px;
+						width: 56px;
+						overflow: hidden;
+					}
+				}
+			}
+			// &:hover {
+			// 	border-color: @pink;
+			// 	background: #efefef;
+			// }
+			// &.active {
+			// 	border-color: @pink;
+			// 	background: #eeeeee;
+			// }
+		}
+	}
+}

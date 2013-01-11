@@ -1,0 +1,4 @@
+tmp/
+test/
+server/node_modules
+static/*
