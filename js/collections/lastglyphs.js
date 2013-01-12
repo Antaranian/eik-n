@@ -12,7 +12,7 @@ define([
 			},
 			delegate: function(){
 				this.on('all', function(ev, glyph){
-					var font = app.fonts.get(glyph.get('dir')),
+					var font = app.fonts.get(glyph.get('fontid')),
 						g = font.glyphs.get(glyph.id);
 					g.trigger('last', ev);
 					// console.log(ev);

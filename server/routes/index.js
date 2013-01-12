@@ -5,8 +5,8 @@ module.exports = function(app, config){
 		res.json(200, 'asdfasf');
 	});
 
-	app.post('/api/font/upload/*', function(req, res){
-		font.importare(req, function(err, details){
+	app.post('/api/fonts/upload/*', function(req, res){
+		font.upload(req, function(err, details){
 			if (err) {
 				res.json({ error: err });
 				return false;
@@ -15,7 +15,7 @@ module.exports = function(app, config){
 		});
 	});
 
-	app.post('/api/font/generate', function(req, res){
+	app.post('/api/fonts/generate', function(req, res){
 		font.generate(req, function(err, details){
 			if (err) {
 				res.json({ error: err });

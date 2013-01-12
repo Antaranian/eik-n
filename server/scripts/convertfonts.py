@@ -16,11 +16,14 @@ from pprint import pprint, pformat
 
 def get_parser( ):
   parser = optparse.OptionParser( )
-  parser.add_option('-t', '--type',
+  parser.add_option('-t', '--types',
                     default="ttf,svg,woff",
-                    help="Write glyphs to this directory.")
+                    help="Include these types.")
   parser.add_option('-p', '--path',
                     default="./",
+                    help="Write glyphs to this directory.")
+  parser.add_option('-n', '--name',
+                    default="eicon",
                     help="Write glyphs to this directory.")
   return parser
 
@@ -34,13 +37,14 @@ class Inspector(object):
     for font in self.args:
       self.convert(font)
 
-  def convert(self, name):
-    font = fontforge.open(name)
-    types = self.options.type.split(',')
+  def convert(self, filename):
     cwd = self.options.path
-    name = basename(path.splitext(name)[0])
-    for type in types:
-      fpath = path.join(cwd, name + '.' + type)
+    name = self.options.name
+    types = self.options.types.split(',')
+    font = fontforge.open(filename)
+    pprint(types)
+    for ext in types:
+      fpath = path.join(cwd, name + '.' + ext)
       font.generate(fpath)
 
 def main(*args):

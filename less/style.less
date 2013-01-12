@@ -69,6 +69,7 @@ html {
 			margin-bottom: 0;
 			border-bottom: 1px solid #DDD;
 			background-color: @grayLighter;
+			overflow: hidden;
 			.nav {
 				margin: 0 4px;
 				li {
@@ -82,11 +83,12 @@ html {
 				}
 			}
 		}
-		& > .section-content {
+		#last-glyphs, #fonts {
 			margin: 0;
-			padding: 10px;
+			padding: 8px;
 			list-style: none;
 			.fill-height(132px);
+			width: 100%;
 			// background: @pink;
 		}
 		& > footer {
@@ -166,7 +168,7 @@ html {
 		}
 	}
 
-	#upload {
+	#upload-font {
 		.qq-uploader {
 			.qq-upload-drop-area {
 				border: 1px dotted #DDD;
@@ -196,7 +198,6 @@ html {
 					border-color: transparent;
 					font-size: 1.8em;
 					color: @grayDark;
-					// font-weight: bold;
 					&:active, &:focus {
 						outline: none;
 						.box-shadow(none);
@@ -224,7 +225,7 @@ html {
 						text-decoration: none;
 					}
 				}
-				.glyph-code {
+				.glyph-name {
 					display: block;
 					text-align: center;
 					outline: none;
@@ -233,47 +234,16 @@ html {
 					overflow: hidden;
 				}
 			}
-			section {
-				width: 56px;
-				position: relative;
-				.glyph-icon {
-					width: 48px;
-					margin: 4px;
-					padding: 4px;
-					text-align: center;
-					display: block;
-					height: 48px;
-					font-size: 36px;
-					line-height: 48px;
-				}
-				.settings {
-					display: none;
-					position: absolute;
-					left: 0;
-					top: -4px;
-					padding: 12px 4px 4px;
-					height: 100%;
-					width: 100%;
-					background: @blueDm;
-					.glyph-name {
-						font-size: 11px;
-						color: @white;
-						display: block;
-						outline: none;
-						height: 25px;
-						width: 56px;
-						overflow: hidden;
-					}
-				}
+			.glyph-icon {
+				width: 48px;
+				margin: 4px;
+				padding: 4px;
+				text-align: center;
+				display: block;
+				height: 48px;
+				font-size: 36px;
+				line-height: 48px;
 			}
-			// &:hover {
-			// 	border-color: @pink;
-			// 	background: #efefef;
-			// }
-			// &.active {
-			// 	border-color: @pink;
-			// 	background: #eeeeee;
-			// }
 		}
 	}
 }

@@ -23,8 +23,6 @@ define([
 			render: function(){
 				var data = this.model.toJSON();
 				
-				// console.log(data);
-
 				var markup = this.tpl(data);
 				this.$el
 					.html(markup)

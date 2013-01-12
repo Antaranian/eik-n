@@ -1,155 +1,199 @@
 var	fs		= require('fs-extra'),
 	exec	= require('child_process').exec;
 
-var step		= require('./step');
+var _ = require('underscore');
 
-// var css		= require('./css'),
-// 	glyph	= require('./glyph');
+var Glyphs = require('./glyphs.js'),
+	Stylesheet = require('./stylesheet.js');
 
-var _			= require('underscore'),
-	libxmljs	= require('libxmljs');
+var config	= require('../config/config.js')();
 
-var config	= require('../config/config.js')(),
-	blacklist = require('../config/fonts.js')('blacklist');
+var dirs = config.dirs;
 
-var upload = function(req, dest, done){
-		var ws = fs.createWriteStream(dest);
+var upload = function(req, done){
+		var filename = util.filename() + req.query.qqfile,
+			filepath = dirs.tmp + filename;
+
+		var ws = fs.createWriteStream(filepath);
 
 		req.on('data', function(data){
 			ws.write(data);
 		});
-		req.on('end', done);
-	},
-	info = function(fontPath, done){
-		var attrs = ['family', 'name', 'fontid', 'fullname', 'weight', 'angle'],
-			command = ['cd', config.dirs.script, '&& ./fontinfo.py ', fontPath].join(' ');
-
-		exec(command, function(err, out){
-			var line = out.replace('\n', ''),
-				details = _.object(attrs, line.split('|'));
-
-			details.angle = parseFloat(details.angle);
-			details.style = details.angle ? 'italic' : 'normal';
-
-			done(err, details);
+		req.on('end', function(err, a){
+			done(err, filepath);
 		});
-	},
-	convert = function(font, options, done){
-		var command = ['cd', config.dirs.script, '&& ./convertfonts.py -t', options.filetypes, '-p', font.fontDir, font.fontPath].join(' ');
-		exec(command, done)
-	},
-	extract = function (fontPath, glyphDir, done) {
-		// console.log(fontPath, glyphDir);
-		var attrs = ['file', 'name', 'code'],
-			command = ['cd', config.dirs.script, '&& ./exportglyphs.py -p', glyphDir, fontPath].join(' ');
-		exec(command, function (err, out){
-			var glyphs = _.chain(out.split('\n'))
-					.compact()
-					.map(function(line){
-						var glyph = _.object(attrs, line.split('|'));
-						// glyph.svg = fs.readFileSync(glyphDir + glyph.file, 'utf8');
-						return glyph;
-					})
-					.value();
-			done(err, glyphs);
-		});
-	},
-	cssGlyphs = function(glyphs, prefix){
-		return _.map(glyphs, function(glyph){
-				return '.icon-' + prefix + '-' + glyph.name + ':before { \n' +
-					'	content: "\\' + glyph.code + '"; \n' +
-					'}';
-			}).join('\n');
 	};
 
-var importare = step.fn(
-		function init(err, req){
-			this.options = {
-				filetypes: 'fft,svg,woff'
-			};
+var compress = function(id, done){
+		var command = [
+				'cd', config.dirs.static + id, 
+				'&& zip -r -9', 
+				id + '.zip',
+				'./fonts/'
+			].join(' ');
+		exec(command, done)
+	};
 
-			this.font = {
-				dir: Date.now()
-			};
-
-			this.dir = config.dirs.static + this.font.dir + '/';
-
-			this.fontDir = this.dir + 'font/';
-			this.glyphDir = this.dir + 'glyph/';
-
-			this.fontPath = this.fontDir + req.query.qqfile;
-
-			fs.mkdirsSync(this.fontDir);
-			fs.mkdirsSync(this.glyphDir);
-
-			return req;
+var util = {
+		// make a filename-safe string
+		filename: function(name, ext){
+			name = name || Date.now() + ''; 
+			ext = ext ? '.' + ext : '';
+			return name
+				.replace(/[^a-z0-9]/gi, '-')
+				.toLowerCase() + ext;
 		},
-		function uploadDo(err, req){
-			upload(req, this.fontPath, this);
-		},
-		function infoDo(err) {
-			var self = this;
-			info(this.fontPath, function(err, details){
-				_.extend(self.font, details);
-				self();
-			});
-		},
-		function convertDo(err){
-			convert(this, this.options, this)
-		},
-		function css(err){
-			var filename = this.fontPath.split('.').shift().split('/').pop(),
-				uri = ([config.host.static, this.font.dir, 'font', filename]).join('/');
-			var font = this.font;
-				src = this.fontDir + filename,
-				stylesheet = ([
-					'@font-face {',
-					'	font-family: "' + font.family + '";',
-					'	src: url("' + uri + '.eot");',
-					'	font-style: ' + this.font.style + ';',
-					'	font-weight: ' + this.font.weight + ';',
-					'	src: url("' + uri + '.eot?#iefix") format("embedded-opentype"),',
-					'		url("' + uri + '.woff") format("woff"),',
-					'		url("' + uri + '.ttf") format("truetype"),',
-					'		url("' + uri + '.svg#' + this.font.fontid + '") format("svg");',
-					'}'
-				]).join('\n');
-			this.filename = filename;
-			this.cssPath = src + '.css';
-			fs.writeFile(this.cssPath, stylesheet, this);
-		},
-		function extractDo(err){
-			extract(this.fontPath, this.glyphDir, this);
-		},
-		function cssGlyphsDo(err, glyphs){
-			this.glyphs = glyphs;
-			var stylesheet = '\n\n' + [
-					'[class^="icon-' + this.font.dir + '-"]:before, [class*=" icon-' + this.font.dir + '-"]:before {',
-					'	font-family: "' + this.font.family + '";',
-					'	font-style: normal;',
-					'	speak: none;',
-					'	font-weight: normal;',
-					'	line-height: 1;',
-					'	-webkit-font-smoothing: antialiased;',
-					'}'
-				].join('\n') + '\n\n';
-			stylesheet += cssGlyphs(glyphs, this.font.dir);
-			fs.appendFile(this.cssPath, stylesheet, this);
-		},
-		function response(err){
-			return {
-				filename: this.filename,
-				dir		: this.font.dir,
-				name	: this.font.name,
-				family	: this.font.family,
-				glyphs	: this.glyphs
-			}
+		// return base64 encoded content of file as string
+		b64: function(path){
+			var data = fs.readFileSync(path);
+			return new Buffer(data).toString('base64');
 		}
-	);
+	};
 
+var Font = function(){
+		var self = {
+				options: {
+					filetypes: 'ttf,svg,woff',
+					base64: false
+				},
+				details: {}
+			};
 
-exports.importare = function(req, done){
-	var done = typeof done === 'function' ? 
-			done : function(){ };
-	importare(null, req, done);
+		self.initialize = function(path, done){
+			// create "namespace" for current font
+			self.path = path;
+			self.id = Date.now();
+			// create required directories
+			self.initfs(self.id, done);
+
+			return self;
+		};
+
+		var callback;
+
+		self.importFont = function(done){
+			callback = done;
+			// get font details
+			self.fetchDetails(function(err, details){
+				self.details = details;
+				self.filename = util.filename(details.fontid); 
+
+				self.makeWeb(done);
+			});
+		};
+
+		self.makeWeb = function(done){
+			// convert fonts to specified formats
+			self.convert();
+			// create css object instance for this font
+			self.css = new Stylesheet(self);
+			var css = self.css
+					.generate(self.options)
+					.save(done);
+		};
+
+		self.extract = function(done){
+			self.extractGlyphs(function(err, glyphs){
+				self.glyphs = glyphs;
+				self.css
+					.appendGlyphs(glyphs, 'icon-' + self.id + '-')
+					.save();
+				done(null, self)
+			});
+		};
+
+		self.extractGlyphs = function(done){
+			var attrs = ['file', 'name', 'code'],
+				command = ['cd', config.dirs.script, '&& ./exportglyphs.py -p', self.dirs.glyphs, self.path].join(' ');
+			exec(command, function (err, out){
+				var lines = _.compact(out.split('\n')),
+					glyphs = _.map(lines, function(line){
+							return _.object(attrs, line.split('|'));
+						});
+				done(err, glyphs);
+			});
+		};
+
+		self.fetchDetails = function(done){
+			var attrs = ['family', 'name', 'fontid', 'weight', 'angle'],
+				command = ['cd', config.dirs.script, '&& ./fontinfo.py ', self.path].join(' ');
+
+			exec(command, function(err, out){
+				var line = out.replace('\n', ''),
+					details = _.object(attrs, line.split('|'));
+
+				details.angle = parseFloat(details.angle);
+				details.style = details.angle ? 'italic' : 'normal';
+
+				done(err, details);
+			});
+		};
+
+		self.convert = function(done){
+			var command = ['cd', config.dirs.script, '&& ./convertfonts.py',
+					'-t', self.options.filetypes, 
+					'-n', self.filename,
+					'-p', self.dirs.fonts, 
+					self.path].join(' ');
+			exec(command, done)
+		};
+
+		self.toJSON = function(){
+			return _.pick(self, 'id', 'details', 'filename', 'glyphs');
+		};
+
+		// create required directory structure
+		self.initfs = function(id, done){
+			var base = config.dirs.static + id,
+				dirs = {
+					fonts	: base + '/fonts/',
+					glyphs	: base + '/glyphs/'
+				};
+
+			fs.mkdirsSync(dirs.fonts);
+			fs.mkdirsSync(dirs.glyphs);
+
+			self.dirs = dirs;
+
+			done && done();
+		};
+
+		return self;
+	};
+
+var font = new Font();
+
+exports.upload = function(req, done){
+	upload(req, function(err, path){
+		var f = font.initialize(path);
+		f.importFont(function(){
+			f.extract(function(){
+				done(null, f.toJSON());
+			});
+		});
+	});
 };
+
+exports.importare = function(path, done){
+
+};
+
+exports.generate = function(req, done){
+	var glyphs = req.body.glyphs,
+		name = req.body.name;
+	var g = new Glyphs(name);
+	g.importGlyphs(glyphs)
+		.renderFont(function(err, path){
+			var f = font.initialize(path);
+			f.importFont(function(){
+				f.extract(function(){
+					compress(f.id, function(){
+						var href = config.host.static + f.id + '/' + f.id + '.zip';
+						done(null, href);
+					});
+					// console.log(f.toJSON());
+				});
+			});
+		});
+
+}

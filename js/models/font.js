@@ -6,7 +6,6 @@ define([
 	'collections/glyphs'
 ], function($, _, Backbone, FontView, Glyphs) {
 	var Model = Backbone.Model.extend({
-			idAttribute: 'dir',
 			initialize: function(){
 				this.view = new FontView(this);
 

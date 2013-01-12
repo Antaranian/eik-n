@@ -7,7 +7,8 @@ define([
 ], function($, _, Backbone, FontView, Glyphs) {
 	var Model = Backbone.Model.extend({
 			defaults: {
-				name: 'Eicon'
+				name: 'Eicon',
+				prefix: 'icon-'
 			},
 			initialize: function(){
 				this.view = new FontView(this);
@@ -34,14 +35,13 @@ define([
 			save: function(){
 				var data = this.source();
 				$.ajax({
-					url: '/api/generate',
+					url: '/api/fonts/generate',
 					data: data,
 					type: 'post',
 					dataType: 'json',
-					complete: function(a, b){
-						console.log(a, b);
+					success: function(href, b){
+						$.download(href);
 					}
-
 				});
 
 			}

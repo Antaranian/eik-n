@@ -2,7 +2,8 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-], function($, _, Backbone, tpl){
+	'scroll'
+], function($, _, Backbone){
 	var View = Backbone.View.extend({
 			events: {
 				'change #font-name': function(e){
@@ -13,6 +14,10 @@ define([
 					} else {
 						this.model.set('fontname', name);
 					}
+				},
+				'click #generate-font': function(e){
+					this.model.save();
+					return false;
 				}
 			},
 			initialize: function(model){
@@ -25,6 +30,10 @@ define([
 				var data = this.model.toJSON();
 				
 				this.$el = $('#last-font');
+
+				var $glyphs = this.$('#last-glyphs'),
+					glyphsHeight = $glyphs.height();
+				$glyphs.slimScroll({ height: glyphsHeight });
 			},
 			delegate: function(){
 

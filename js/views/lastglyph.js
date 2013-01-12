@@ -14,28 +14,8 @@ define([
 					this.model.set('name', name);
 					// app.lastFont.editGlyph(this.model);
 				},
-				'click .cog': function(){
-					this.$el
-						.siblings()
-						.find('.settings')
-							.hide();
-					this.$('.settings').toggle();
-					return false;
-				},
-				'keyup .glyph-code': function(){
-					var value = this.$code.html();
-					value = value.replace(/[^(0-9a-f)]/ig,'').substring(0, 4);
-					this.$code.html(value);
-				},
-				'focus .glyph-code': function(){
-					var value = this.$code.html();
-					value = value.replace(/^(U\+)/ig,'');
-					this.$code.html(value);	
-				},
-				'blur .glyph-code': function(){
-					var value = 'U+' + this.$code.html();
-					this.$code.html(value);
-					this.model.set('code', code);
+				'click .close': function(){
+					this.model.destroy();
 				}
 			},
 			initialize: function(model){

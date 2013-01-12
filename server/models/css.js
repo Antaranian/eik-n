@@ -1,55 +1,132 @@
 var	fs		= require('fs-extra'),
 	exec	= require('child_process').exec;
 
-var step		= require('./step');
-
-var _			= require('underscore');
+var _ = require('underscore');
 
 var config	= require('../config/config.js')();
 
-var header = function(details){
-		return ['@font-face {',
-			'	font-family: "' + details.family + '";',
-			'	font-style: ' + details.style + ';',
-			'	font-weight: ' + details.weight + ';'
-		].join('\n');
-	};
-
-					var filename = config.dirs.static + font.dirname + '/' + font.filename,
-						woff = !base64 ? '"' + filename + '.woff"' : 'data:font/woff;charset=utf-8;base64,' + b64(filename + '.woff'),
-						ttf = !base64 ? '"' + filename + '.ttf"' : 'data:font/truetype;charset=utf-8;base64,' + b64(filename + '.ttf');
-
-					var	all = {
-							woff: '		url(' + woff + ') format("woff")',
-							 ttf: '		url(' + ttf + ') format("truetype")',
-							 svg: '		url("' + font.filename + '.svg#' + font.fontid + '") format("svg")',
-							 eot: '		ur'};
-
-var lines = function(font, options){
-		var result = [],
-			baseUrl = config.host.static + font.dir + '/';
-		if (/svg/.test(options.fonttypes)){
-			result.push(
-					'		url("' + options.filename + '.svg#' + font.fontid + '") format("svg")'
-				);
+var util = {
+		// make a filename-safe string
+		filename: function(name, ext){
+			name = name || Date.now() + ''; 
+			ext = ext ? '.' + ext : '';
+			return name
+				.replace(/[^a-z0-9]/gi, '-')
+				.toLowerCase() + ext;
+		},
+		// return base64 encoded content of file as string
+		b64: function(path){
+			var data = fs.readFileSync(path);
+			return new Buffer(data).toString('base64');
 		}
 	};
 
-var webfont = function(font, options){
-		var o = _.defaults(iceCream, {
-				fonttype	: 'svg,woff,ttf', 
-				base64		: false,
-				details		: { style: 'normal', weight: 'normal' }
-			});
+module.exports = function(font){
+	var self = _.pick(font, 'details', 'dirs', 'id', 'filename');
 
+	var options = {
+			filetypes: 'ttf,svg,woff',
+			base64: false
+		};
+
+	var details = self.details;
+
+	var headlines = [
+			'@font-face {',
+			'	font-family: "' + details.family + '";',
+			'	font-style: ' + details.style + ';',
+			'	font-weight: ' + details.weight + ';'
+		].join('\n'),
+		typelines = '', footlines = ['}\n\n'],
+		glyphlines = '\n\n';
+
+	var renderType = {
+			woff: function(uri, path, base64){
+				var txt = '"' + uri + '.woff"';
+				if (base64) {
+					txt = 'data:font/woff;charset=utf-8;base64,' + b64(path);
+				}
+				return '		url(' + txt + ') format("woff"),';
+			},
+			ttf: function(uri, path, base64){
+				var txt = '"' + uri + '.ttf"';
+				if (base64) {
+					var path = self.dirs.fonts + self.filename + '.ttf';
+					txt = 'data:font/truetype;charset=utf-8;base64,' + b64(path);
+				}
+				return '		url(' + txt + ') format("truetype"),';
+			},
+			svg: function(uri){
+				return '		url("' + uri + '.svg#' + self.details.fontid + '") format("svg")';
+			},
+			otf: function(uri){
+				return '		url("' + uri + '.otf") format("opentype")';
+			}
+		};
+
+	self.generate = function(o){
+		var o = _.defaults(options, o);
+
+		var uri = config.host.static + self.id + '/fonts/' + self.filename,
+			path = config.dirs.static + self.id + '/fonts/' + self.filename;
+
+		var types = o.filetypes.split(',');
+
+		var lines = [];
+		// IE hack
+		if (_.contains(types, 'eot')) {
+			Array.prototype.push(lines, [
+					'	src: url("' + uri + '.eot");',
+					'	src: local("' + self.details.family + '"),',
+					'		url("' + uri + '.eot?#iefix") format("embedded-opentype"),'
+				]);
+		} else {
+			lines.push('	src: local("' + self.details.family + '"),');
+		}
+
+		_.each(types, function(type){
+			var line = renderType[type](uri, path, o.base64);
+			lines.push(line);
+		});
+
+		var lastline = lines.pop();
+		lastline = lastline.slice(0, -1) + ';';
+		lines.push(lastline);
+
+		typelines = lines.join('\n');
+
+
+		return self;
 	};
 
-exports.webfont = function(font, options){
-	return webfont(font, options);
-};
+	self.appendGlyphs = function(glyphs, prefix){
+		prefix = prefix || 'icon-';
 
-exports.download = function(req, done){
-	var done = typeof done === 'function' ? 
-			done : function(){ };
-	download(null, req, done);
+		glyphlines += ['[class^="' + prefix + '"]:before, [class*=" ' + prefix + '"]:before {',
+			'	font-family: "' + self.details.family + '";',
+			'	font-style: normal;',
+			'	speak: none;',
+			'	font-weight: normal;',
+			'	line-height: 1;',
+			'	-webkit-font-smoothing: antialiased;',
+			'}'].join('\n') + 
+			'\n\n' +
+			_.map(glyphs, function(glyph){
+				return '.' + prefix + glyph.name + ':before {' +
+					'	content: "\\' + glyph.code + '";' +
+					'}';
+			}).join('\n');
+
+		return self;
+	};
+
+	self.save = function(done){
+		var path = config.dirs.static + self.id + '/fonts/' + self.filename + '.css',
+			lines = [headlines, typelines, footlines, glyphlines].join('\n');
+
+		fs.writeFile(path, lines);
+		done && done();
+	};
+
+	return self;
 };

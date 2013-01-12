@@ -55,8 +55,40 @@ class Inspector(object):
     self.args = args
 
   def run(self):
-  	pprint(self.options)
-  	pprint(self.args)
+    self.name = self.options.name
+    self.path = self.options.path
+
+    self.font = font = fontforge.font()
+
+    font.fontname = self.name
+    font.fullname = self.name
+    font.familyname = self.name
+
+    glyphs = self.options.glyphs.split(',,')
+    for g in glyphs:
+      self.grab(g)
+
+    font.generate(self.path)
+
+  def grab(self, g):
+    gl = g.split(',')
+    name = gl[0]
+    code = int(gl[1], 16)
+    path = gl[2]
+
+    # pprint()
+    glyph = self.font.createChar(code)
+
+    glyph.importOutlines(path)
+
+    glyph.glyphname = name
+
+    ymin = glyph.boundingBox()[1]
+    glyph.transform([1, 0, 0, 1, 0, -ymin])
+
+    glyph.left_side_bearing = glyph.right_side_bearing = 10
+
+
     # for font in self.args:
     #   self.convert(font)
 

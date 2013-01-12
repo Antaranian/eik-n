@@ -8,7 +8,8 @@ module.exports = function(){
 		},
 		dirs: {
 			static	: '/home/antaranian/Current/eicon/static/',
-			script	: __dirname + '/../scripts/'
+			script	: __dirname + '/../scripts/',
+			tmp		: '/home/antaranian/Current/eicon/tmp/'
 		},
 		error: {
 			default	: 'Something was wrong.' 

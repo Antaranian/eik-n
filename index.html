@@ -39,7 +39,7 @@
 		<section id="prepare-fonts" class="span8">
 			<header>
 				<div class="row-fluid">
-					<div id="upload" class="span4"></div>
+					<div id="upload-font" class="span4"></div>
 					<ul class="nav pull-right">
 						<li> <a class="resize-layout" data-resize="prepare-fonts" href="#"> <i class="icon-resize-full"></i>  <i class="icon-resize-small none"></i> </a> </li>
 					</ul>
@@ -66,7 +66,7 @@
 						<!-- <li> <input id="name" type="text" class="input-medium" placeholder="Font name" value="Eicon"/> </li> -->
 					</ul>
 					<ul class="nav pull-right">
-						<li> <button class="btn btn-dm"> Download <i class="icon-download-alt"></i> </button> </li>
+						<li> <button id="generate-font" class="btn btn-dm"> Generate </button> </li>
 					</ul>
 				</div>
 			</header>
@@ -81,6 +81,8 @@
 		</section>
 	</div>
 </div>
+
+<footer><iframe id="force-download"></iframe></footer>
 
 </body>
 </html>

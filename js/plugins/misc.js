@@ -15,8 +15,8 @@ $.fn.serializeObject = function(){
 };
 
 $.download = function(url) {
-	var hiddenIFrameID = 'downloader',
-		iframe = document.getElementById(hiddenIFrameID);
+	var iframeId = 'force-download',
+		iframe = document.getElementById(iframeId);
 	if (iframe === null) {
 		iframe = document.createElement('iframe');
 		iframe.id = hiddenIFrameID;
