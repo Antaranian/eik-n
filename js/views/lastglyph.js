@@ -9,10 +9,9 @@ define([
 			tagName: 'li',
 			tpl: _.template(tpl),
 			events: {
-				'blur .glyph-name': function(){
-					var name = this.$('.glyph-name').html();
-					this.model.set('name', name);
-					// app.lastFont.editGlyph(this.model);
+				'change .glyph-name': function(e){
+					var name = this.$name.val();
+					this.model.setName(name);
 				},
 				'click .close': function(){
 					this.model.destroy();
@@ -21,24 +20,28 @@ define([
 			initialize: function(model){
 				this.model = model;
 
-				this.render();
-				this.delegate();
-			},
-			render: function(){
-				var data = this.model.toJSON();
-				
-				// console.log(data);
-				var markup = this.tpl(data);
 				this.$el
-					.html(markup)
 					.appendTo('#last-glyphs');
 
-				this.$code = this.$('.glyph-code');
+				this.render();
+			},
+			render: function(){
+				var data = this.model.toJSON(),
+					markup = this.tpl(data);
+
+				this.$el.html(markup);
+
+				this.$name = this.$('.glyph-name');
+
+				this.delegate();
 			},
 			delegate: function(){
 				this.model.on('destroy', function(){
 					this.remove();
 				}, this);
+				// this.model.on('change:name', function(a, name){
+				// 	this.$name.val(name);
+				// }, this);
 			}
 		});
 	return View;

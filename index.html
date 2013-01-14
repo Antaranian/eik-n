@@ -49,8 +49,9 @@
 			<footer>
 				<div class="navbar">
 					<div class="navbar-inner">
-						<ul class="nav pull-left">
-						</ul>
+						<div class="progress hide">
+							<div class="bar" style="width:0;"></div>
+						</div>
 					</div>
 				</div>
 			</footer>
@@ -66,15 +67,26 @@
 						<!-- <li> <input id="name" type="text" class="input-medium" placeholder="Font name" value="Eicon"/> </li> -->
 					</ul>
 					<ul class="nav pull-right">
-						<li> <button id="generate-font" class="btn btn-dm"> Generate </button> </li>
+						<li> <button id="generate-font" class="btn btn-dm disabled"> Generate </button> </li>
 					</ul>
+					<div id="upload-glyph"></div>
 				</div>
 			</header>
 			<ul id="last-glyphs" class="section-content"></ul>
 			<footer>
 				<div class="navbar">
 					<div class="navbar-inner">
-
+						<ul class="nav row-fluid">
+							<li>
+								<a class="upload" title="Upload SVG Icons" href="#"> <i class="icon-upload-alt"></i> </a>
+							</li>
+							<li>
+								<a class="reset" title="Reset" href="#"> <i class="icon-refresh"></i> </a>
+							</li>
+							<li class="pull-right">
+								<a id="download-font" title="Download" href="#"> <i class="icon-download-alt"></i> </a>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</footer>
@@ -82,7 +94,7 @@
 	</div>
 </div>
 
-<footer><iframe id="force-download"></iframe></footer>
+<footer><iframe id="force-download" class="hide"></iframe></footer>
 
 </body>
 </html>

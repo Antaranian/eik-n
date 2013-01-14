@@ -1,12 +1,11 @@
 <header class="clearfix">
-	<!-- <a class="cog" href="#"> <i class="icon-cog"></i> </a> -->
 	<button class="glyph-remove close pull-right">&times;</button>
 </header>
+<% if (fontid == 0) { %>
+<embed class="glyph-icon" src="/static/0/glyphs/<%= file %>" />
+<% } else { %>
 <span title="<%= name %>" class="icon-<%= fontid %>-<%= name %> glyph-icon"></span>
-	<!-- <div class="settings">
-	</div> -->
+<% } %> 
 <footer class="clearfix">
-	<span contenteditable class="glyph-name"><%= name %></span>
-	<!-- <span contenteditable class="glyph-code">U+<%= code %></span> -->
+	<input type="text" class="glyph-name" value="<%= name %>" />
 </footer>
-<!-- <div> <%= svg %> </div> -->

@@ -8,18 +8,22 @@ define([
 			model: LastGlyph,
 			initialize: function(d, font){
 				this.font = font; 
+
 				this.delegate();
 			},
 			delegate: function(){
 				this.on('all', function(ev, glyph){
-					var font = app.fonts.get(glyph.get('fontid')),
-						g = font.glyphs.get(glyph.id);
-					g.trigger('last', ev);
-					// console.log(ev);
+					this.font.trigger('change');
+					if (/add|remove/.test(ev)) {
+						var fontid = glyph.get('fontid'); 
+						if (fontid == 0) {
+							return false;
+						}
+						var font = app.fonts.get(fontid),
+							g = font.glyphs.get(glyph.id);
+						g.trigger('last', ev);
+					}
 				});
-				// this.on('add', function(a, b, c,){
-				// 	console.log(a, b, c);
-				// });
 			}
 		});
 	return Collection;

@@ -23,12 +23,18 @@ define([
 				this.delegate();
 			},
 			render: function(){
-				var data = this.model.toJSON();
-				console.log(data);
-				var markup = this.tpl(data);
+				var data = this.model.toJSON(),
+					markup = this.tpl(data);
+
+				$('#fonts')
+					.slimScroll({ scrollTo: '-5000px' });
+
 				this.$el
+					.hide()
 					.html(markup)
-					.appendTo('#fonts');
+					.prependTo('#fonts')
+					.slideDown('normal');
+
 			},
 			delegate: function(){
 				this.model.on('destroy', function(){

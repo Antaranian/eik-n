@@ -46,18 +46,45 @@ define([
 						multiple: true,
 						allowedExtensions: ['svg', 'ttf'],
 						uploadButton: "Import",
+						// extraDropzones: [$('#prepare-fonts').get(0)],
+						onUpload: function(a, b){
+							// console.log(a, b);
+							self.showProgress(true);
+						},
+						onProgress: function(a, b, c, d){
+							self.showProgress(c, d);
+						},
 						onComplete: function(a, b, data){
 							if (data.error) {
 								app.log('error', data.error);
 								return false;
 							}
 							app.fonts.add(data);
+							self.showProgress(false);
 						},
 						onError: function(a, b, err){
-							app.log('error', 'Something was wrong. Please try again');
+							self.showProgress(false);
 						}
 					});
 			},
+			showProgress: function(c, t) {
+				if (t){
+					var width = (c / t * 100) + '%';
+					this.$('.progress').show()
+						.find('.bar')
+							.width(width);
+					if (c === t) {
+						this.$('.progress').hide();
+					}
+				} else if (c) {
+					this.$('.progress').show();
+				} else {
+					this.$('.progress')
+						hide()
+						.find('.bar')
+							.width(0);
+				}
+			}
 		});
 	return View;
 });

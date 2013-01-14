@@ -67,7 +67,7 @@ module.exports = function(font){
 	self.generate = function(o){
 		var o = _.defaults(options, o);
 
-		var uri = config.host.static + self.id + '/fonts/' + self.filename,
+		var uri = '/static/' + self.id + '/fonts/' + self.filename,
 			path = config.dirs.static + self.id + '/fonts/' + self.filename;
 
 		var types = o.filetypes.split(',');

@@ -99,6 +99,14 @@ html {
 				margin-bottom: 0;
 				.navbar-inner {
 					.border-radius(0);
+					.progress {
+						margin-top: 8px;
+						margin-bottom: 8px;
+						.bar {
+							.transition(all .1s linear);
+							background: darken(@blueDm, 15%);
+						}
+					}
 				}
 			}
 		}
@@ -152,12 +160,14 @@ html {
 					display: inline-block;
 					.border-radius(2px);
 					&:hover {
-						border-color: @pink;
-						background: #efefef;
+						border-color: @grayLight;
+						background: #434343;
+						color: @grayLighter;
 					}
 					&.active {
-						border-color: @pink;
-						background: #eeeeee;
+						border-color: @gray;
+						color: @white;
+						background: @grayDark;
 					}
 				} 
 			}
@@ -191,6 +201,11 @@ html {
 
 #last-font {
 	header {
+		#upload-glyph {
+			width: 1px;
+			height: 1px;
+			visibility: hidden;
+		}
 		.nav {
 			li {
 				input {
@@ -214,24 +229,19 @@ html {
 			.border-radius(2px);
 			margin: 4px;
 			header, footer {
-				font-size: 11px;
-				color: @white;
 				background: @blueDm;
 				padding: 2px 4px;
-				a {
-					color: @grayLighter;
-					&:hover, &:active {
-						color: @white;
-						text-decoration: none;
-					}
-				}
 				.glyph-name {
-					display: block;
+					padding: 0;
+					border: 0;
+					margin: 0;
+					background: transparent;
+					font-size: 11px;
+					color: @white;
 					text-align: center;
 					outline: none;
 					height: 25px;
 					width: 56px;
-					overflow: hidden;
 				}
 			}
 			.glyph-icon {
@@ -243,7 +253,13 @@ html {
 				height: 48px;
 				font-size: 36px;
 				line-height: 48px;
+				color: @black;
 			}
+		}
+	}
+	footer {
+		#download-font {
+			display: none;
 		}
 	}
 }

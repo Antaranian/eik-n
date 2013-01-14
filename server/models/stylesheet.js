@@ -44,7 +44,7 @@ module.exports = function(font){
 			woff: function(uri, path, base64){
 				var txt = '"' + uri + '.woff"';
 				if (base64) {
-					txt = 'data:font/woff;charset=utf-8;base64,' + b64(path);
+					txt = 'data:font/woff;charset=utf-8;base64,' + util.b64(path);
 				}
 				return '		url(' + txt + ') format("woff"),';
 			},
@@ -52,7 +52,7 @@ module.exports = function(font){
 				var txt = '"' + uri + '.ttf"';
 				if (base64) {
 					var path = self.dirs.fonts + self.filename + '.ttf';
-					txt = 'data:font/truetype;charset=utf-8;base64,' + b64(path);
+					txt = 'data:font/truetype;charset=utf-8;base64,' + util.b64(path);
 				}
 				return '		url(' + txt + ') format("truetype"),';
 			},
@@ -65,9 +65,12 @@ module.exports = function(font){
 		};
 
 	self.generate = function(o){
-		var o = _.defaults(options, o);
+		// console.log(o, options);
+		var o = _.extend(options, o);
+
 
 		var uri = config.host.static + self.id + '/fonts/' + self.filename,
+		// var uri = '/static/' + self.id + '/fonts/' + self.filename,
 			path = config.dirs.static + self.id + '/fonts/' + self.filename;
 
 		var types = o.filetypes.split(',');

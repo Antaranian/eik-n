@@ -1,5 +1,6 @@
 var	fs		= require('fs-extra'),
-	exec	= require('child_process').exec;
+	exec	= require('child_process').exec,
+	path	= require('path');
 
 var _ = require('underscore');
 
@@ -12,7 +13,7 @@ var dirs = config.dirs;
 
 var upload = function(req, done){
 		var filename = util.filename() + req.query.qqfile,
-			filepath = dirs.tmp + filename;
+			filepath = config.dirs.tmp + filename;
 
 		var ws = fs.createWriteStream(filepath);
 
@@ -84,12 +85,13 @@ var Font = function(){
 
 		self.makeWeb = function(done){
 			// convert fonts to specified formats
-			self.convert();
-			// create css object instance for this font
-			self.css = new Stylesheet(self);
-			var css = self.css
-					.generate(self.options)
-					.save(done);
+			self.convert(function(){
+				// create css object instance for this font
+				self.css = new Stylesheet(self);
+				var css = self.css
+						.generate(self.options)
+						.save(done);
+			});
 		};
 
 		self.extract = function(done){

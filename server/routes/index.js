@@ -1,4 +1,5 @@
-var font = require('../models/font.js');
+var font = require('../models/font.js'),
+	glyphs = require('../models/glyphs.js')();
 
 module.exports = function(app, config){
 	app.get('/api/test', function(req, res){
@@ -7,6 +8,16 @@ module.exports = function(app, config){
 
 	app.post('/api/fonts/upload/*', function(req, res){
 		font.upload(req, function(err, details){
+			if (err) {
+				res.json({ error: err });
+				return false;
+			}
+			res.json(details);
+		});
+	});
+
+	app.post('/api/glyphs/upload/*', function(req, res){
+		glyphs.upload(req, function(err, details){
 			if (err) {
 				res.json({ error: err });
 				return false;

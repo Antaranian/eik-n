@@ -11,9 +11,9 @@ define([
 				prefix: 'icon-'
 			},
 			initialize: function(){
-				this.view = new FontView(this);
+				this.glyphs = new Glyphs([], this);
 
-				this.glyphs = new Glyphs();
+				this.view = new FontView(this);
 			},
 			toggleGlyph: function(glyph){
 				var g = this.glyphs.get(glyph.id);
@@ -23,9 +23,6 @@ define([
 					this.glyphs.add(glyph);
 				}
 			},
-			editGlyph: function(glyph){
-
-			},
 			source: function(){
 				var glyphs = this.glyphs.toJSON();
 				return _.extend(this.toJSON(), {
@@ -33,17 +30,17 @@ define([
 					});
 			},
 			save: function(){
-				var data = this.source();
+				var self = this;
+
 				$.ajax({
 					url: '/api/fonts/generate',
-					data: data,
+					data: self.source(),
 					type: 'post',
 					dataType: 'json',
 					success: function(href, b){
-						$.download(href);
+						self.trigger('generated', href);		
 					}
 				});
-
 			}
 		});
 	return Model;
