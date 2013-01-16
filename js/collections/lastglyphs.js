@@ -16,9 +16,7 @@ define([
 					this.font.trigger('change');
 					if (/add|remove/.test(ev)) {
 						var fontid = glyph.get('fontid'); 
-						if (fontid == 0) {
-							return false;
-						}
+
 						var font = app.fonts.get(fontid),
 							g = font.glyphs.get(glyph.id);
 						g.trigger('last', ev);

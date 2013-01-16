@@ -1,11 +1,15 @@
 <header class="font-header">
-	<link rel="stylesheet" type="text/css" href="http://static.eicon.antaranian.com/<%= id %>/fonts/<%= filename %>.css">
+	<% if (filename) { %>
+	<link rel="stylesheet" type="text/css" href="http://static.eicon.antaranian.com/<%= id %>/fonts/style.css">
+	<% } %>
 	<strong class="font-name">
 		<%= details.name %>
 	</strong>
+	<% if (glyphs.length) { %>
 	<small class="font-glyphs">
 		(<%= glyphs.length  %> glyphs)
 	</small>
+	<% } %>
 	<button class="font-remove close">&times;</button>
 </header>
 <ul class="clearfix glyphs"></ul>

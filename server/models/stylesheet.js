@@ -24,10 +24,11 @@ var util = {
 module.exports = function(font){
 	var self = _.pick(font, 'details', 'dirs', 'id', 'filename');
 
-	var options = {
-			filetypes: 'ttf,svg,woff',
-			base64: false
-		};
+	self.options = {
+		filetypes: 'ttf,svg,woff',
+		base64: false,
+		prefix: 'icon-'
+	};
 
 	var details = self.details;
 
@@ -65,9 +66,7 @@ module.exports = function(font){
 		};
 
 	self.generate = function(o){
-		// console.log(o, options);
-		var o = _.extend(options, o);
-
+		var o = _.extend(self.options, o);
 
 		var uri = config.host.static + self.id + '/fonts/' + self.filename,
 		// var uri = '/static/' + self.id + '/fonts/' + self.filename,
@@ -102,8 +101,10 @@ module.exports = function(font){
 		return self;
 	};
 
-	self.appendGlyphs = function(glyphs, prefix){
-		prefix = prefix || 'icon-';
+	self.appendGlyphs = function(glyphs){
+		self.glyphs = glyphs;
+
+		prefix = self.options.prefix || 'icon-';
 
 		glyphlines += ['[class^="' + prefix + '"]:before, [class*=" ' + prefix + '"]:before {',
 			'	font-family: "' + self.details.family + '";',
@@ -124,10 +125,15 @@ module.exports = function(font){
 	};
 
 	self.save = function(done){
-		var path = config.dirs.static + self.id + '/fonts/' + self.filename + '.css',
+		var outerPath = config.dirs.static + self.id + '/style.css',
+			innerPath = config.dirs.static + self.id + '/fonts/style.css',
 			lines = [headlines, typelines, footlines, glyphlines].join('\n');
 
-		fs.writeFile(path, lines);
+		fs.writeFile(outerPath, lines);
+
+		var r = new RegExp(config.host.static + self.id + '/fonts/', 'gi');
+		fs.writeFile(innerPath, lines.replace(r, ''))
+
 		done && done();
 	};
 

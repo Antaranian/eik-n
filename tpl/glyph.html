@@ -1,1 +1,9 @@
-<i title="<%= name %>" class="icon-<%= fontid %>-<%= name %>"></i>
+<% if (fontid == 0) { %>
+<div class="relative">
+	<div class="absolute"></div>
+	<embed class="glyph-icon" src="/static/0/glyphs/<%= file %>" />
+</div>
+
+<% } else { %>
+<span title="<%= name %>" class="icon-<%= fontid %>-<%= name %> glyph-icon"></span>
+<% } %> 

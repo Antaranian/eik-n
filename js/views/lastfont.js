@@ -7,13 +7,21 @@ define([
 ], function($, _, Backbone, qq){
 	var View = Backbone.View.extend({
 			events: {
-				'change #font-name': function(e){
-					var $name = this.$('#font-name'),
-						name = $.trim($name.val());
-					if (name = '') {
-						$name.val(this.model.get('fontname'));
+				'submit #last-options form': function(e){
+					e.preventDefault();
+					this.$('#last-options').slideUp('fast');
+					return false;
+				},
+				'change #last-options input': function(e){
+					// e.prevendDefaults();
+					var $input = this.$(e.target).closest('input'),
+						key = $input.attr('name'),
+						val = $.trim($input.val());
+
+					if (val == '') {
+						$input.val(this.model.get(key));
 					} else {
-						this.model.set('fontname', name);
+						this.model.set(key, val);
 					}
 				},
 				'click #generate-font:not(.disabled)': function(e){
@@ -23,8 +31,8 @@ define([
 				'click .reset': function(e){
 					this.model.glyphs.reset();
 				},
-				'click .upload': function(e){
-					$('#upload-glyph .qq-upload-button input').click()
+				'click .options': function(e){
+					this.$('#last-options').slideToggle();
 				}
 			},
 			initialize: function(model){
@@ -50,20 +58,6 @@ define([
 			uploadify: function(){
 				var self = this,
 					el = self.$('#upload-glyph').get(0);
-
-				new qq.FileUploader({
-						action: '/api/glyphs/upload/',
-						element: el,
-						multiple: true,
-						allowedExtensions: ['svg'],
-						onComplete: function(a, b, data){
-							if (data.error) {
-								app.log('error', data.error);
-								return false;
-							}
-							self.model.glyphs.add(data);
-						}
-					});
 			},
 			delegate: function(){
 				var self = this;

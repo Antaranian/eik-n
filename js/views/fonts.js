@@ -16,6 +16,14 @@ define([
 					e.preventDefault();
 					e.stopPropagation();
 					this.model.destroy();
+				},
+				'click .upload': function(e){
+					var $btn = $(e.target).closest('.btn'),
+						target = $btn.data('target');
+
+					$('.qq-upload-button input', target).click();
+
+					console.log(target, $('.qq-upload-button input', target).get())
 				}
 			},
 			initialize: function(model){
@@ -37,18 +45,15 @@ define([
 
 			},
 			uploadify: function(){
-				var self = this,
-					el = self.$('#upload-font').get(0);
+				var self = this;
 
-				new qq.FileUploader({
+				self.uploadFont = new qq.FileUploader({
 						action: '/api/fonts/upload/',
-						element: el,
+						element: self.$('#upload-font').get(0),
 						multiple: true,
 						allowedExtensions: ['svg', 'ttf'],
 						uploadButton: "Import",
-						// extraDropzones: [$('#prepare-fonts').get(0)],
 						onUpload: function(a, b){
-							// console.log(a, b);
 							self.showProgress(true);
 						},
 						onProgress: function(a, b, c, d){
@@ -60,6 +65,30 @@ define([
 								return false;
 							}
 							app.fonts.add(data);
+							self.showProgress(false);
+						},
+						onError: function(a, b, err){
+							self.showProgress(false);
+						}
+					});
+
+				self.uploadGlyph = new qq.FileUploader({
+						action: '/api/glyphs/upload/',
+						element: self.$('#upload-glyph').get(0),
+						multiple: true,
+						allowedExtensions: ['svg'],
+						onUpload: function(a, b){
+							self.showProgress(true);
+						},
+						onProgress: function(a, b, c, d){
+							self.showProgress(c, d);
+						},
+						onComplete: function(a, b, data){
+							if (data.error) {
+								app.log('error', data.error);
+								return false;
+							}
+							app.firstfont.addGlyph(data);
 							self.showProgress(false);
 						},
 						onError: function(a, b, err){

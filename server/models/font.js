@@ -5,7 +5,8 @@ var	fs		= require('fs-extra'),
 var _ = require('underscore');
 
 var Glyphs = require('./glyphs.js'),
-	Stylesheet = require('./stylesheet.js');
+	Stylesheet = require('./stylesheet.js'),
+	Markup = require('./markup.js');
 
 var config	= require('../config/config.js')();
 
@@ -51,29 +52,29 @@ var util = {
 		}
 	};
 
-var Font = function(){
+var Font = function(options){
 		var self = {
-				options: {
-					filetypes: 'ttf,svg,woff',
-					base64: false
-				},
-				details: {}
+				id: Date.now(),
+				details: { }
 			};
+		self.options = {
+			filetypes: 'ttf,svg,woff',
+			base64: false,
+			prefix: 'icon-' + self.id + '-'
+		};
+
+		_.extend(self.options, options);
 
 		self.initialize = function(path, done){
 			// create "namespace" for current font
 			self.path = path;
-			self.id = Date.now();
 			// create required directories
-			self.initfs(self.id, done);
+			self.initfs(done);
 
 			return self;
 		};
 
-		var callback;
-
 		self.importFont = function(done){
-			callback = done;
 			// get font details
 			self.fetchDetails(function(err, details){
 				self.details = details;
@@ -95,11 +96,15 @@ var Font = function(){
 		};
 
 		self.extract = function(done){
+			self.html = new Markup(self); 
 			self.extractGlyphs(function(err, glyphs){
 				self.glyphs = glyphs;
 				self.css
 					.appendGlyphs(glyphs, 'icon-' + self.id + '-')
 					.save();
+				self.html
+					.render(glyphs)
+				self.html.save();
 				done(null, self)
 			});
 		};
@@ -145,8 +150,8 @@ var Font = function(){
 		};
 
 		// create required directory structure
-		self.initfs = function(id, done){
-			var base = config.dirs.static + id,
+		self.initfs = function(done){
+			var base = config.dirs.static + self.id,
 				dirs = {
 					fonts	: base + '/fonts/',
 					glyphs	: base + '/glyphs/'
@@ -163,39 +168,38 @@ var Font = function(){
 		return self;
 	};
 
-var font = new Font();
 
 exports.upload = function(req, done){
 	upload(req, function(err, path){
-		var f = font.initialize(path);
-		f.importFont(function(){
-			f.extract(function(){
-				done(null, f.toJSON());
+		var font = new Font();
+		font.initialize(path);
+		font.importFont(function(){
+			font.extract(function(){
+				done(null, font.toJSON());
 			});
 		});
 	});
 };
 
-exports.importare = function(path, done){
-
-};
-
 exports.generate = function(req, done){
 	var glyphs = req.body.glyphs,
-		name = req.body.name;
+		name = req.body.name,
+		prefix = req.body.prefix;
 	var g = new Glyphs(name);
 	g.importGlyphs(glyphs)
 		.renderFont(function(err, path){
-			var f = font.initialize(path);
-			f.importFont(function(){
-				f.extract(function(){
-					compress(f.id, function(){
-						var href = config.host.static + f.id + '/' + f.id + '.zip';
-						done(null, href);
-					});
-					// console.log(f.toJSON());
+			var font = new Font({
+					prefix: prefix
 				});
-			});
+			font.initialize(path)
+				.importFont(function(){
+					font.extract(function(){
+						compress(font.id, function(){
+							var href = config.host.static + font.id + '/' + font.id + '.zip';
+							done(null, href);
+						});
+					});
+				});
 		});
 
 }

@@ -9,7 +9,17 @@ define([
 			initialize: function(){
 				this.view = new FontView(this);
 
-				this.glyphs = new Glyphs(this.get('glyphs'), this);
+				var glyphs = this.get('glyphs');
+				this.glyphs = new Glyphs(glyphs, this);
+
+				glyphs.length && this.view.show();
+
+				this.delegate()
+			},
+			delegate: function(){
+				this.glyphs.on('all', function(ev, a, b){
+					console.log(ev, a, b);
+				});
 			}
 		});
 	return Model;

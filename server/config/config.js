@@ -7,9 +7,10 @@ module.exports = function(){
 			port	: 8080
 		},
 		dirs: {
-			static	: '/home/antaranian/Current/eicon/static/',
+			static	: __dirname + '/../../static/',
 			script	: __dirname + '/../scripts/',
-			tmp		: '/home/antaranian/Current/eicon/tmp/'
+			tpl		: __dirname + '/../templates/',
+			tmp		: __dirname + '/../../tmp/'
 		},
 		error: {
 			default	: 'Something was wrong.' 

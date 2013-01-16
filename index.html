@@ -39,11 +39,18 @@
 		<section id="prepare-fonts" class="span8">
 			<header>
 				<div class="row-fluid">
-					<div id="upload-font" class="span4"></div>
+					<div class="btn-toolbar pull-left">
+						<div class="btn-group row-fluid">
+							<button class="btn btn-dm upload span6" data-target="#upload-font"> Upload Font </button>
+							<button class="btn btn-dm upload span6" data-target="#upload-glyph"> Upload Glyph </button>
+						</div>
+					</div>
 					<ul class="nav pull-right">
 						<li> <a class="resize-layout" data-resize="prepare-fonts" href="#"> <i class="icon-resize-full"></i>  <i class="icon-resize-small none"></i> </a> </li>
 					</ul>
 				</div>
+				<div id="upload-font"></div>
+				<div id="upload-glyph"></div>
 			</header>
 			<ul id="fonts" class="section-content"></ul>
 			<footer>
@@ -57,36 +64,44 @@
 			</footer>
 		</section>
 		<section id="last-font" class="span4 pull-right">
-			<header>
-				<div class="row-fluid">
-					<ul class="nav pull-left">
-						<li> <a class="resize-layout" data-resize="last-font" href="#"> <i class="icon-resize-full"></i>  <i class="icon-resize-small none"></i> </a> </li>
-					</ul>
-					<ul class="nav pull-left">
-						<li> <input id="font-name" type="text" class="input-medium" placeholder="Font name" value="Eicon"/> </li>
-						<!-- <li> <input id="name" type="text" class="input-medium" placeholder="Font name" value="Eicon"/> </li> -->
-					</ul>
-					<ul class="nav pull-right">
-						<li> <button id="generate-font" class="btn btn-dm disabled"> Generate </button> </li>
-					</ul>
-					<div id="upload-glyph"></div>
+			<header class="relative">
+				<ul class="nav row-fluid">
+					<li> <a class="resize-layout" data-resize="last-font" href="#"> <i class="icon-resize-full"></i>  <i class="icon-resize-small none"></i> </a> </li>
+					<li class="pull-right"> <a class="options" href="#"> <i class="icon-cog"></i> </a> </li>
+				</ul>
+				<div id="last-options" class="absolute">
+					<form class="form">
+						<div class="control-group">
+							<label class="control-label">Font name</label>
+							<div class="controls">
+								<input type="text" name="name" value="Eicon" placeholder="Font name">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">Prefix</label>
+							<div class="controls">
+								<input type="text" name="prefix" value="icon-" placeholder="Prefix">
+							</div>
+						</div>
+						<div class="control-group invisible absolute">
+							<div class="controls clearfix">
+								<button type="submit" class="btn btn-dm pull-right"> Save Options </button>
+							</div>
+						</div>
+					</form>
 				</div>
 			</header>
 			<ul id="last-glyphs" class="section-content"></ul>
 			<footer>
 				<div class="navbar">
 					<div class="navbar-inner">
-						<ul class="nav row-fluid">
-							<li>
-								<a class="upload" title="Upload SVG Icons" href="#"> <i class="icon-upload-alt"></i> </a>
-							</li>
-							<li>
-								<a class="reset" title="Reset" href="#"> <i class="icon-refresh"></i> </a>
-							</li>
+						<ul class="nav pull-left">
+							<li> <a class="reset" title="Reset" href="#"> <i class="icon-refresh"></i> </a> </li>
 							<li class="pull-right">
 								<a id="download-font" title="Download" href="#"> <i class="icon-download-alt"></i> </a>
 							</li>
 						</ul>
+						<button id="generate-font" class="btn btn-dm disabled pull-right"> Generate </button> 
 					</div>
 				</div>
 			</footer>

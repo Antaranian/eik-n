@@ -26,20 +26,28 @@ define([
 				var data = this.model.toJSON(),
 					markup = this.tpl(data);
 
-				$('#fonts')
-					.slimScroll({ scrollTo: '-5000px' });
+				var $fonts = $('#fonts');
+				parentHeight = $fonts.height();
+
+				$fonts.slimScroll({ scrollTo: parentHeight + 'px' });
+
+				console.log(parentHeight);
 
 				this.$el
 					.hide()
 					.html(markup)
-					.prependTo('#fonts')
-					.slideDown('normal');
-
+					.appendTo($fonts);
 			},
 			delegate: function(){
 				this.model.on('destroy', function(){
 					this.remove();
 				}, this);
+			},
+			hide: function(){
+				this.$el.slideUp('fast');
+			},
+			show: function(){
+				this.$el.slideDown('fast');
 			}
 		});
 	return View;

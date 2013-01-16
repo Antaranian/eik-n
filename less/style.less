@@ -69,10 +69,17 @@ html {
 			margin-bottom: 0;
 			border-bottom: 1px solid #DDD;
 			background-color: @grayLighter;
-			overflow: hidden;
+			.btn-toolbar {
+				margin: 0;
+				width: 280px;
+			}
 			.nav {
 				margin: 0 4px;
 				li {
+					float: left;
+					&.pull-right {
+						float: right;
+					}
 					a {
 						margin: 5px;
 						text-decoration: none;
@@ -89,12 +96,14 @@ html {
 			list-style: none;
 			.fill-height(132px);
 			width: 100%;
-			// background: @pink;
 		}
 		& > footer {
 			position: absolute;
 			bottom: 0;
 			width: 100%;
+			.btn {
+				margin-top: 2px;
+			}
 			.navbar {
 				margin-bottom: 0;
 				.navbar-inner {
@@ -146,12 +155,11 @@ html {
 				}
 			}
 			.glyphs {
-
 				margin: 4px 2px;
 				.glyph {
 					margin: 4px;
 					padding: 4px;
-					border: 1px solid @blueDm;
+					border: 2px solid @grayLighter;
 					width: 48px;
 					height: 48px;
 					font-size: 36px;
@@ -159,15 +167,26 @@ html {
 					text-align: center;
 					display: inline-block;
 					.border-radius(2px);
+					span {
+						color: @black;	
+					}
+					.relative {
+						.absolute {
+							width: 100%;
+							height: 100%;
+						}
+						embed {
+							vertical-align: -6%;
+						}
+						
+					}
 					&:hover {
-						border-color: @grayLight;
-						background: #434343;
-						color: @grayLighter;
+						border-color: #DDD;
+						background: #FEFEFE;
 					}
 					&.active {
-						border-color: @gray;
-						color: @white;
-						background: @grayDark;
+						border-color: @blueDm;
+						background: #efefef;
 					}
 				} 
 			}
@@ -177,46 +196,27 @@ html {
 			}
 		}
 	}
-
-	#upload-font {
-		.qq-uploader {
-			.qq-upload-drop-area {
-				border: 1px dotted #DDD;
-				background: #f7f7f7;
-				text-align: center;
-				padding: .2em;
-				float: right;
-			}
-			.qq-upload-button {
-				float: left;
-				margin-left: 0;
-				margin-top: 0; 
-			}
-			.qq-upload-list {
-				display: none;
-			}
-		}
+	#upload-glyph, #upload-font {
+		width: 1px;
+		height: 1px;
+		visibility: hidden;
+		position: absolute;
 	}
 }
 
 #last-font {
 	header {
-		#upload-glyph {
-			width: 1px;
-			height: 1px;
-			visibility: hidden;
-		}
-		.nav {
-			li {
-				input {
-					background: transparent;
-					border-color: transparent;
-					font-size: 1.8em;
-					color: @grayDark;
-					&:active, &:focus {
-						outline: none;
-						.box-shadow(none);
-					}
+		#last-options {
+			display: none;
+			right: -1px;
+			top: 53px;
+			border: 1px solid #DDD;
+			padding: .4em .8em;
+			z-index: 1050;
+			background: @white;
+			form {
+				label {
+					color: @gray;
 				}
 			}
 		}
