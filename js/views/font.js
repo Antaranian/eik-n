@@ -12,7 +12,6 @@ define([
 				'click .font-remove': function(e){
 					e.preventDefault();
 					e.stopPropagation();
-					// console.log(this.model);
 					this.model.destroy();
 				}
 			},

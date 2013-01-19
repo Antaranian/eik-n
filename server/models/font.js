@@ -74,6 +74,13 @@ var Font = function(options){
 			return self;
 		};
 
+		self.isFont = function(done){
+			command = ['cd', config.dirs.script, '&& ./fontinfo.py ', self.path].join(' ');
+			exec(command, function(err, details){
+				done(!err);
+			});
+		};
+
 		self.importFont = function(done){
 			// get font details
 			self.fetchDetails(function(err, details){
@@ -170,13 +177,30 @@ var Font = function(options){
 
 
 exports.upload = function(req, done){
-	upload(req, function(err, path){
+	upload(req, function(err, filepath){
 		var font = new Font();
-		font.initialize(path);
-		font.importFont(function(){
-			font.extract(function(){
-				done(null, font.toJSON());
-			});
+		font.initialize(filepath);
+		font.isFont(function(is){
+			if (is) {
+				font.importFont(function(){
+					font.extract(function(){
+						done(null, font.toJSON());
+					});
+				});
+			} else {
+				var filename = util.filename() + req.query.qqfile,
+					filepath2 = config.dirs.static + '0/glyphs/' + filename;
+				fs.copy(filepath, filepath2, function(err){
+					console.log('glyph', err,  filepath2);
+					done(null, {
+						glyph	: true,
+						fontid	: 0,
+						file	: path.basename(filepath2),
+						name	: path.basename(req.query.qqfile, '.svg')
+					});
+				});
+				
+			}
 		});
 	});
 };
@@ -202,4 +226,10 @@ exports.generate = function(req, done){
 				});
 		});
 
-}
+};
+
+// var f = new Font();
+// f.initialize('/home/antaranian/Current/eicon/server/scripts/tmp/1.ttf')
+// 	.isFont(function(is){
+// 		console.log('is font: ', is);
+// 	});

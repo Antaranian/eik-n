@@ -9,8 +9,11 @@ define([
 			events: {
 				'click .font-header': function(e){
 					var $font = $(e.target).closest('.font'),
-						$glyphs = $font.find('.glyphs');
+						$glyphs = $font.find('.glyphs'),
+						$indicator = $font.find('.font-toggle');
 					$glyphs.slideToggle('fast');
+					$indicator.toggleClass('icon-plus icon-minus');
+
 				},
 				'click .font-remove': function(e){
 					e.preventDefault();
@@ -18,12 +21,7 @@ define([
 					this.model.destroy();
 				},
 				'click .upload': function(e){
-					var $btn = $(e.target).closest('.btn'),
-						target = $btn.data('target');
-
-					$('.qq-upload-button input', target).click();
-
-					console.log(target, $('.qq-upload-button input', target).get())
+					$('.qq-upload-button input', '#upload').click();
 				}
 			},
 			initialize: function(model){
@@ -48,8 +46,8 @@ define([
 				var self = this;
 
 				self.uploadFont = new qq.FileUploader({
-						action: '/api/fonts/upload/',
-						element: self.$('#upload-font').get(0),
+						action: '/api/upload/',
+						element: self.$('#upload').get(0),
 						multiple: true,
 						allowedExtensions: ['svg', 'ttf'],
 						uploadButton: "Import",
@@ -64,32 +62,13 @@ define([
 								app.log('error', data.error);
 								return false;
 							}
-							app.fonts.add(data);
-							self.showProgress(false);
-						},
-						onError: function(a, b, err){
-							self.showProgress(false);
-						}
-					});
-
-				self.uploadGlyph = new qq.FileUploader({
-						action: '/api/glyphs/upload/',
-						element: self.$('#upload-glyph').get(0),
-						multiple: true,
-						allowedExtensions: ['svg'],
-						onUpload: function(a, b){
-							self.showProgress(true);
-						},
-						onProgress: function(a, b, c, d){
-							self.showProgress(c, d);
-						},
-						onComplete: function(a, b, data){
-							if (data.error) {
-								app.log('error', data.error);
-								return false;
+							if (data.glyph) {
+								app.firstfont.addGlyph(data);
+							} else {
+								app.fonts.add(data);
 							}
-							app.firstfont.addGlyph(data);
 							self.showProgress(false);
+
 						},
 						onError: function(a, b, err){
 							self.showProgress(false);
@@ -97,21 +76,20 @@ define([
 					});
 			},
 			showProgress: function(c, t) {
+				var $progress = this.$('.progress'),
+					$bar = $('.bar', $progress);
 				if (t){
 					var width = (c / t * 100) + '%';
-					this.$('.progress').show()
-						.find('.bar')
-							.width(width);
+					$progress.show();
+					$bar.width(width);
 					if (c === t) {
-						this.$('.progress').hide();
+						this.showProgress(false);
 					}
 				} else if (c) {
-					this.$('.progress').show();
-				} else {
-					this.$('.progress')
-						hide()
-						.find('.bar')
-							.width(0);
+					$progress.show();
+				} else if (c === false){
+					$progress.hide();
+					$bar.width(0);
 				}
 			}
 		});

@@ -47,6 +47,9 @@ define([
 			save: function() {
 				var glyphs = this.glyphs.toJSON();
 				$.totalStorage('firstglyphs', glyphs);
+			},
+			destroy: function(){
+				this.glyphs.reset();
 			}
 		});
 	return Model;

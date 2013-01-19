@@ -12,14 +12,19 @@ define([
 				this.delegate();
 			},
 			delegate: function(){
-				this.on('all', function(ev, glyph){
+				this.on('all', function(ev, glyph, b){
 					this.font.trigger('change');
+
 					if (/add|remove/.test(ev)) {
-						var fontid = glyph.get('fontid'); 
+						var fontid = glyph.get('fontid'),
+							glyphid = glyph.id; 
 
 						var font = app.fonts.get(fontid),
-							g = font.glyphs.get(glyph.id);
-						g.trigger('last', ev);
+							glyph = font.glyphs.get(glyphid);
+
+						glyph.trigger('last', ev);
+					} else if (/reset/.test(ev)) {
+						app.fonts.deactivate();
 					}
 				});
 			}

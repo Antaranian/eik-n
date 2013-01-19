@@ -58,10 +58,10 @@ module.exports = function(font){
 				return '		url(' + txt + ') format("truetype"),';
 			},
 			svg: function(uri){
-				return '		url("' + uri + '.svg#' + self.details.fontid + '") format("svg")';
+				return '		url("' + uri + '.svg#' + self.details.fontid + '") format("svg"),';
 			},
 			otf: function(uri){
-				return '		url("' + uri + '.otf") format("opentype")';
+				return '		url("' + uri + '.otf") format("opentype"),';
 			}
 		};
 
@@ -96,7 +96,6 @@ module.exports = function(font){
 		lines.push(lastline);
 
 		typelines = lines.join('\n');
-
 
 		return self;
 	};

@@ -13,6 +13,11 @@ define([
 			},
 			delegate: function(){
 
+			},
+			deactivate: function(){
+				this.each(function(font){
+					font.glyphs.deactivate();
+				});
 			}
 		});
 	return Collection;

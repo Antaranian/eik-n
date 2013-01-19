@@ -41,16 +41,14 @@
 				<div class="row-fluid">
 					<div class="btn-toolbar pull-left">
 						<div class="btn-group row-fluid">
-							<button class="btn btn-dm upload span6" data-target="#upload-font"> Upload Font </button>
-							<button class="btn btn-dm upload span6" data-target="#upload-glyph"> Upload Glyph </button>
+							<button class="btn btn-dm upload span6"> Upload </button>
 						</div>
 					</div>
 					<ul class="nav pull-right">
 						<li> <a class="resize-layout" data-resize="prepare-fonts" href="#"> <i class="icon-resize-full"></i>  <i class="icon-resize-small none"></i> </a> </li>
 					</ul>
 				</div>
-				<div id="upload-font"></div>
-				<div id="upload-glyph"></div>
+				<div id="upload"></div>
 			</header>
 			<ul id="fonts" class="section-content"></ul>
 			<footer>
@@ -109,7 +107,15 @@
 	</div>
 </div>
 
-<footer><iframe id="force-download" class="hide"></iframe></footer>
+<footer>
+	<iframe id="force-download" class="hide"></iframe>
+	<div id="alert" class="modal hide fade">
+		<div class="modal-body">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			<p id="alert-text">One fine body…</p>
+		</div>
+	</div>
+</footer>
 
 </body>
 </html>

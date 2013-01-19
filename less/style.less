@@ -83,6 +83,9 @@ html {
 					a {
 						margin: 5px;
 						text-decoration: none;
+						i {
+							font-size: 20px;
+						}
 						.icon-resize-small {
 							display: none;
 						}
@@ -135,15 +138,17 @@ html {
 			header {
 				margin: 8px 12px;
 				cursor: pointer;
+				.font-toggle {
+					font-size: 20px;
+					vertical-align: text-bottom;
+					.transition(color .15s linear);
+				}
 				.font-name {
 					font-size: 24px;
 					line-height: 1.3em;
-					color: @black;
+					color: @grayDark;
 					font-weight: normal;
-					&:hover {
-						.transition(color .2s linear);
-						color: @blueDm;
-					}
+					.transition(color .15s linear);
 				}
 				.font-info {
 					padding-left: .2em;
@@ -193,10 +198,18 @@ html {
 
 			&:hover {
 				background: #F7F7F7;
+				header:hover {
+					.font-toggle {
+						color: @blueDm;
+					}
+					.font-name {
+						color: @black;
+					}
+				}
 			}
 		}
 	}
-	#upload-glyph, #upload-font {
+	#upload {
 		width: 1px;
 		height: 1px;
 		visibility: hidden;

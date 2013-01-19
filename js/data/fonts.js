@@ -1,9 +1,9 @@
 [{
-  "id": 1358173518120,
+  "id": 1358419220019,
   "details": {
-    "family": "fontello",
-    "name": "fontello",
-    "fontid": "fontello",
+    "family": "Maki",
+    "name": "Maki",
+    "fontid": "Maki",
     "weight": "Medium",
     "angle": 0,
     "style": "normal"
@@ -324,6 +324,334 @@
       "file": "e844.uniE844.glyph.svg",
       "name": "uniE844",
       "code": "e844"
+    }
+  ]
+}, {
+  "id": 1358419271961,
+  "details": {
+    "family": "Meteocons",
+    "name": "Meteocons",
+    "fontid": "Meteocons Regular",
+    "weight": "Book",
+    "angle": 0,
+    "style": "normal"
+  },
+  "filename": "meteocons-regular",
+  "glyphs": [
+    {
+      "file": "0020.space.glyph.svg",
+      "name": "space",
+      "code": "0020"
+    },
+    {
+      "file": "0021.exclam.glyph.svg",
+      "name": "exclam",
+      "code": "0021"
+    },
+    {
+      "file": "0022.quotedbl.glyph.svg",
+      "name": "quotedbl",
+      "code": "0022"
+    },
+    {
+      "file": "0023.numbersign.glyph.svg",
+      "name": "numbersign",
+      "code": "0023"
+    },
+    {
+      "file": "0024.dollar.glyph.svg",
+      "name": "dollar",
+      "code": "0024"
+    },
+    {
+      "file": "0025.percent.glyph.svg",
+      "name": "percent",
+      "code": "0025"
+    },
+    {
+      "file": "0026.ampersand.glyph.svg",
+      "name": "ampersand",
+      "code": "0026"
+    },
+    {
+      "file": "0027.quotesingle.glyph.svg",
+      "name": "quotesingle",
+      "code": "0027"
+    },
+    {
+      "file": "0028.parenleft.glyph.svg",
+      "name": "parenleft",
+      "code": "0028"
+    },
+    {
+      "file": "0029.parenright.glyph.svg",
+      "name": "parenright",
+      "code": "0029"
+    },
+    {
+      "file": "002a.asterisk.glyph.svg",
+      "name": "asterisk",
+      "code": "002a"
+    },
+    {
+      "file": "002b.plus.glyph.svg",
+      "name": "plus",
+      "code": "002b"
+    },
+    {
+      "file": "0030.zero.glyph.svg",
+      "name": "zero",
+      "code": "0030"
+    },
+    {
+      "file": "0031.one.glyph.svg",
+      "name": "one",
+      "code": "0031"
+    },
+    {
+      "file": "0032.two.glyph.svg",
+      "name": "two",
+      "code": "0032"
+    },
+    {
+      "file": "0033.three.glyph.svg",
+      "name": "three",
+      "code": "0033"
+    },
+    {
+      "file": "0034.four.glyph.svg",
+      "name": "four",
+      "code": "0034"
+    },
+    {
+      "file": "0035.five.glyph.svg",
+      "name": "five",
+      "code": "0035"
+    },
+    {
+      "file": "0036.six.glyph.svg",
+      "name": "six",
+      "code": "0036"
+    },
+    {
+      "file": "0037.seven.glyph.svg",
+      "name": "seven",
+      "code": "0037"
+    },
+    {
+      "file": "0038.eight.glyph.svg",
+      "name": "eight",
+      "code": "0038"
+    },
+    {
+      "file": "0039.nine.glyph.svg",
+      "name": "nine",
+      "code": "0039"
+    },
+    {
+      "file": "0041.A.glyph.svg",
+      "name": "A",
+      "code": "0041"
+    },
+    {
+      "file": "0042.B.glyph.svg",
+      "name": "B",
+      "code": "0042"
+    },
+    {
+      "file": "0043.C.glyph.svg",
+      "name": "C",
+      "code": "0043"
+    },
+    {
+      "file": "0044.D.glyph.svg",
+      "name": "D",
+      "code": "0044"
+    },
+    {
+      "file": "0045.E.glyph.svg",
+      "name": "E",
+      "code": "0045"
+    },
+    {
+      "file": "0046.F.glyph.svg",
+      "name": "F",
+      "code": "0046"
+    },
+    {
+      "file": "0047.G.glyph.svg",
+      "name": "G",
+      "code": "0047"
+    },
+    {
+      "file": "0048.H.glyph.svg",
+      "name": "H",
+      "code": "0048"
+    },
+    {
+      "file": "0049.I.glyph.svg",
+      "name": "I",
+      "code": "0049"
+    },
+    {
+      "file": "004a.J.glyph.svg",
+      "name": "J",
+      "code": "004a"
+    },
+    {
+      "file": "004b.K.glyph.svg",
+      "name": "K",
+      "code": "004b"
+    },
+    {
+      "file": "004c.L.glyph.svg",
+      "name": "L",
+      "code": "004c"
+    },
+    {
+      "file": "004d.M.glyph.svg",
+      "name": "M",
+      "code": "004d"
+    },
+    {
+      "file": "004e.N.glyph.svg",
+      "name": "N",
+      "code": "004e"
+    },
+    {
+      "file": "004f.O.glyph.svg",
+      "name": "O",
+      "code": "004f"
+    },
+    {
+      "file": "0050.P.glyph.svg",
+      "name": "P",
+      "code": "0050"
+    },
+    {
+      "file": "0051.Q.glyph.svg",
+      "name": "Q",
+      "code": "0051"
+    },
+    {
+      "file": "0052.R.glyph.svg",
+      "name": "R",
+      "code": "0052"
+    },
+    {
+      "file": "0053.S.glyph.svg",
+      "name": "S",
+      "code": "0053"
+    },
+    {
+      "file": "0054.T.glyph.svg",
+      "name": "T",
+      "code": "0054"
+    },
+    {
+      "file": "0055.U.glyph.svg",
+      "name": "U",
+      "code": "0055"
+    },
+    {
+      "file": "0056.V.glyph.svg",
+      "name": "V",
+      "code": "0056"
+    },
+    {
+      "file": "0057.W.glyph.svg",
+      "name": "W",
+      "code": "0057"
+    },
+    {
+      "file": "0058.X.glyph.svg",
+      "name": "X",
+      "code": "0058"
+    },
+    {
+      "file": "0059.Y.glyph.svg",
+      "name": "Y",
+      "code": "0059"
+    },
+    {
+      "file": "005a.Z.glyph.svg",
+      "name": "Z",
+      "code": "005a"
+    },
+    {
+      "file": "00a0.uni00A0.glyph.svg",
+      "name": "uni00A0",
+      "code": "00a0"
+    },
+    {
+      "file": "2000.uni2000.glyph.svg",
+      "name": "uni2000",
+      "code": "2000"
+    },
+    {
+      "file": "2001.uni2001.glyph.svg",
+      "name": "uni2001",
+      "code": "2001"
+    },
+    {
+      "file": "2002.uni2002.glyph.svg",
+      "name": "uni2002",
+      "code": "2002"
+    },
+    {
+      "file": "2003.uni2003.glyph.svg",
+      "name": "uni2003",
+      "code": "2003"
+    },
+    {
+      "file": "2004.uni2004.glyph.svg",
+      "name": "uni2004",
+      "code": "2004"
+    },
+    {
+      "file": "2005.uni2005.glyph.svg",
+      "name": "uni2005",
+      "code": "2005"
+    },
+    {
+      "file": "2006.uni2006.glyph.svg",
+      "name": "uni2006",
+      "code": "2006"
+    },
+    {
+      "file": "2007.uni2007.glyph.svg",
+      "name": "uni2007",
+      "code": "2007"
+    },
+    {
+      "file": "2008.uni2008.glyph.svg",
+      "name": "uni2008",
+      "code": "2008"
+    },
+    {
+      "file": "2009.uni2009.glyph.svg",
+      "name": "uni2009",
+      "code": "2009"
+    },
+    {
+      "file": "200a.uni200A.glyph.svg",
+      "name": "uni200A",
+      "code": "200a"
+    },
+    {
+      "file": "202f.uni202F.glyph.svg",
+      "name": "uni202F",
+      "code": "202f"
+    },
+    {
+      "file": "205f.uni205F.glyph.svg",
+      "name": "uni205F",
+      "code": "205f"
+    },
+    {
+      "file": "e000.uniE000.glyph.svg",
+      "name": "uniE000",
+      "code": "e000"
     }
   ]
 }]

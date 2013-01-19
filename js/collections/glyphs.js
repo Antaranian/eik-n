@@ -10,7 +10,12 @@ define([
 				this.delegate();
 			},
 			delegate: function(){
-
+				// return this.
+			},
+			deactivate: function(){
+				this.each(function(glyph){
+					glyph.trigger('last', 'remove');
+				});
 			}
 		});
 	return Collection;

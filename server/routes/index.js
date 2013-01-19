@@ -6,18 +6,8 @@ module.exports = function(app, config){
 		res.json(200, 'asdfasf');
 	});
 
-	app.post('/api/fonts/upload/*', function(req, res){
+	app.post('/api/upload/*', function(req, res){
 		font.upload(req, function(err, details){
-			if (err) {
-				res.json({ error: err });
-				return false;
-			}
-			res.json(details);
-		});
-	});
-
-	app.post('/api/glyphs/upload/*', function(req, res){
-		glyphs.upload(req, function(err, details){
 			if (err) {
 				res.json({ error: err });
 				return false;

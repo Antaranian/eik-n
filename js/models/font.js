@@ -17,9 +17,7 @@ define([
 				this.delegate()
 			},
 			delegate: function(){
-				this.glyphs.on('all', function(ev, a, b){
-					console.log(ev, a, b);
-				});
+				
 			}
 		});
 	return Model;
