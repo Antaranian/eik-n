@@ -12,7 +12,7 @@ from pprint import pprint, pformat
 def get_parser( ):
   parser = optparse.OptionParser( )
   parser.add_option('-n', '--name',
-                    default="Eicon",
+                    default="Designmodo",
                     help="Set font name")
   parser.add_option('-p', '--path',
                     default="./",

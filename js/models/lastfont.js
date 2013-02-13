@@ -7,7 +7,7 @@ define([
 ], function($, _, Backbone, FontView, Glyphs) {
 	var Model = Backbone.Model.extend({
 			defaults: {
-				name: 'Eicon',
+				name: 'Designmodo',
 				prefix: 'icon-'
 			},
 			initialize: function(){

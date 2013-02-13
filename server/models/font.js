@@ -54,7 +54,7 @@ var util = {
 
 var Font = function(options){
 		var self = {
-				id: Date.now(),
+				id: 'Designmodo-' + Date.now(),
 				details: { }
 			};
 		self.options = {
