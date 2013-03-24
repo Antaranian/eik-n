@@ -1,0 +1,71 @@
+@font-face {
+	font-family: "linecons";
+	font-style: normal;
+	font-weight: Book;
+	src: local("linecons"),
+		url("http://static.eicon.antaranian.com/1358419220019/fonts/linecons.ttf") format("truetype"),
+		url("http://static.eicon.antaranian.com/1358419220019/fonts/linecons.svg#linecons") format("svg"),
+		url("http://static.eicon.antaranian.com/1358419220019/fonts/linecons.woff") format("woff");
+}
+
+
+
+
+[class^="icon-1358419220019-"]:before, [class*=" icon-1358419220019-"]:before {
+	font-family: "linecons";
+	font-style: normal;
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+.icon-1358419220019-uniE000:before {	content: "\e000";}
+.icon-1358419220019-uniE001:before {	content: "\e001";}
+.icon-1358419220019-uniE002:before {	content: "\e002";}
+.icon-1358419220019-uniE003:before {	content: "\e003";}
+.icon-1358419220019-uniE004:before {	content: "\e004";}
+.icon-1358419220019-uniE005:before {	content: "\e005";}
+.icon-1358419220019-uniE006:before {	content: "\e006";}
+.icon-1358419220019-uniE007:before {	content: "\e007";}
+.icon-1358419220019-uniE008:before {	content: "\e008";}
+.icon-1358419220019-uniE009:before {	content: "\e009";}
+.icon-1358419220019-uniE00A:before {	content: "\e00a";}
+.icon-1358419220019-uniE00B:before {	content: "\e00b";}
+.icon-1358419220019-uniE00C:before {	content: "\e00c";}
+.icon-1358419220019-uniE00D:before {	content: "\e00d";}
+.icon-1358419220019-uniE00E:before {	content: "\e00e";}
+.icon-1358419220019-uniE00F:before {	content: "\e00f";}
+.icon-1358419220019-uniE010:before {	content: "\e010";}
+.icon-1358419220019-uniE011:before {	content: "\e011";}
+.icon-1358419220019-uniE012:before {	content: "\e012";}
+.icon-1358419220019-uniE013:before {	content: "\e013";}
+.icon-1358419220019-uniE014:before {	content: "\e014";}
+.icon-1358419220019-uniE015:before {	content: "\e015";}
+.icon-1358419220019-uniE016:before {	content: "\e016";}
+.icon-1358419220019-uniE017:before {	content: "\e017";}
+.icon-1358419220019-uniE018:before {	content: "\e018";}
+.icon-1358419220019-uniE019:before {	content: "\e019";}
+.icon-1358419220019-uniE01A:before {	content: "\e01a";}
+.icon-1358419220019-uniE01B:before {	content: "\e01b";}
+.icon-1358419220019-uniE01C:before {	content: "\e01c";}
+.icon-1358419220019-uniE01D:before {	content: "\e01d";}
+.icon-1358419220019-uniE01E:before {	content: "\e01e";}
+.icon-1358419220019-uniE01F:before {	content: "\e01f";}
+.icon-1358419220019-uniE020:before {	content: "\e020";}
+.icon-1358419220019-uniE021:before {	content: "\e021";}
+.icon-1358419220019-uniE022:before {	content: "\e022";}
+.icon-1358419220019-uniE023:before {	content: "\e023";}
+.icon-1358419220019-uniE024:before {	content: "\e024";}
+.icon-1358419220019-uniE025:before {	content: "\e025";}
+.icon-1358419220019-uniE026:before {	content: "\e026";}
+.icon-1358419220019-uniE027:before {	content: "\e027";}
+.icon-1358419220019-uniE028:before {	content: "\e028";}
+.icon-1358419220019-uniE029:before {	content: "\e029";}
+.icon-1358419220019-uniE02A:before {	content: "\e02a";}
+.icon-1358419220019-uniE02B:before {	content: "\e02b";}
+.icon-1358419220019-uniE02C:before {	content: "\e02c";}
+.icon-1358419220019-uniE02D:before {	content: "\e02d";}
+.icon-1358419220019-uniE02E:before {	content: "\e02e";}
+.icon-1358419220019-uniE02F:before {	content: "\e02f";}
+.icon-1358419220019-uniF000:before {	content: "\f000";}

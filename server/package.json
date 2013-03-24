@@ -1,6 +1,6 @@
 {
-  "name": "font-face-down",
-  "description": "Node.js @font-face kit generator app",
+  "name": "eicon",
+  "description": "Node.js icon font generator",
   "version": "0.3",
   "private": true,
   "author": {
@@ -13,19 +13,12 @@
   "dependencies": {
     "express": "3.0.0",
     "riak-js": "0.4.1",
-    "libxmljs": "0.6.1",
     "underscore": "*",
     "fs-extra": "*"
   },
-  "keywords": [
-    "font-face",
-    "font",
-    "ttf",
-    "woff",
-    "webfont"
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
-    "url": "http://bb.antaranian.com/font-face-down"
+    "url": "http://bb.antaranian.com/eicon"
   }
 }

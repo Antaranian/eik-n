@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_flows "http://ns.adobe.com/Flows/1.0/">
+]>
+<svg version="1.1"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/"
+	 x="0px" y="0px" width="32px" height="32px" viewBox="0 -4 32 32" overflow="visible" enable-background="new 0 -4 32 32"
+	 xml:space="preserve">
+<defs>
+</defs>
+<path id="camera_1_" fill-rule="evenodd" clip-rule="evenodd" d="M30.001,4H25.29l-1.801-2.675C22.933,0.497,21.999,0,21.001,0h-10
+	c-0.998,0-1.93,0.496-2.488,1.324L6.712,4H2.001C0.896,4,0,4.896,0,6c0,0,0,15.873,0,16c0,1.104,0.895,2,2,2h28c1.105,0,2-0.896,2-2
+	l0.001-16C32.001,4.896,31.106,4,30.001,4z M16,19c-3.312,0-6-2.687-6-6s2.688-6,6-6s6,2.687,6,6S19.312,19,16,19z"/>
+</svg>

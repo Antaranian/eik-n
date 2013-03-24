@@ -1,1 +1,1 @@
-#Node.js @font-face kit generator app
+#Node.js iconic font generator
