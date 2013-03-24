@@ -10,7 +10,7 @@ module.exports = function(){
 			static	: __dirname + '/../../static/',
 			script	: __dirname + '/../scripts/',
 			tpl		: __dirname + '/../templates/',
-			tmp		: __dirname + '/../../tmp/'
+			tmp		: __dirname + '/../../static/tmp/'
 		},
 		error: {
 			default	: 'Something was wrong.' 
