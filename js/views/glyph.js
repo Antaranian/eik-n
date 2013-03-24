@@ -10,6 +10,7 @@ define([
 			tpl: _.template(tpl),
 			events: {
 				'click': function(){
+					console.log(this.model.id);
 					app.lastfont.toggleGlyph(this.model.toJSON());
 				}
 			},

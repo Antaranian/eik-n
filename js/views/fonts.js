@@ -49,7 +49,7 @@ define([
 						action: '/api/upload/',
 						element: self.$('#upload').get(0),
 						multiple: true,
-						allowedExtensions: ['svg', 'ttf'],
+						allowedExtensions: ['svg', 'ttf', 'woff'],
 						uploadButton: "Import",
 						onUpload: function(a, b){
 							self.showProgress(true);
