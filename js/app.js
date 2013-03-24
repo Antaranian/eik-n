@@ -14,10 +14,6 @@ define([
 				fonts	: new Fonts()
 			};
 
-
-
-		// fontsData.unshift(self.firstfont)
-		// console.log(data);
 		self.initialize = function(){
 			self.firstfont = new FirstFont();
 			self.lastfont = new LastFont();
@@ -26,9 +22,8 @@ define([
 			app.fonts.add(fontsData);
 		};
 
-		// var alert = new Alert();
 		self.log = function(e, txt){
-		// 	alert.render(e, txt);
+
 		};
 
 		return self;

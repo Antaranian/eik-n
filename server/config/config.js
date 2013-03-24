@@ -1,9 +1,11 @@
+var baseHost = 'eitest.antaranian.com';
+
 module.exports = function(){
 	return {
 		host: {
-			baseUrl	: 'http://eicon.antaranian.com/',
-			static	: 'http://static.eicon.antaranian.com/',
-			name	: 'eicon.antaranian.com',
+			baseUrl	: 'http://' + baseHost + '/',
+			static	: 'http://static.' + baseHost + '/',
+			name	: baseHost,
 			port	: 8080
 		},
 		dirs: {
